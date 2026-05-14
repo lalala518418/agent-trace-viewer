@@ -64,9 +64,27 @@ class TraceDetailResponse(TraceListItemResponse):
 class PromptVersionResponse(BaseModel):
     version: str
     label: str
+    label_zh: str
     description: str
+    description_zh: str
+    system_prompt: str
+    system_prompt_zh: str
     recommended_model: str
     focus: str
+    focus_zh: str
+
+
+class PromptVersionUpsertRequest(BaseModel):
+    version: str = Field(min_length=1, max_length=50)
+    label: str = Field(min_length=1, max_length=120)
+    label_zh: str = Field(min_length=1, max_length=120)
+    description: str = Field(min_length=1, max_length=1000)
+    description_zh: str = Field(min_length=1, max_length=1000)
+    system_prompt: str = Field(min_length=1, max_length=4000)
+    system_prompt_zh: str = Field(min_length=1, max_length=4000)
+    recommended_model: str = Field(min_length=1, max_length=100)
+    focus: str = Field(min_length=1, max_length=120)
+    focus_zh: str = Field(min_length=1, max_length=120)
 
 
 class TraceStatsPointResponse(BaseModel):

@@ -47,7 +47,7 @@ aside {
 }
 
 .app-shell {
-  max-width: 1460px;
+  max-width: 1580px;
   margin: 0 auto;
   padding: 28px 20px 56px;
 }
@@ -58,6 +58,88 @@ aside {
   gap: 18px;
   align-items: end;
   margin-bottom: 18px;
+}
+
+.app-header__actions {
+  display: flex;
+  gap: 12px;
+  align-items: flex-end;
+}
+
+.app-layout {
+  display: grid;
+  grid-template-columns: 280px minmax(0, 1fr);
+  gap: 20px;
+  align-items: start;
+}
+
+.app-content {
+  min-width: 0;
+}
+
+.app-sidebar {
+  position: sticky;
+  top: 20px;
+  padding: 18px;
+}
+
+.app-sidebar__header {
+  margin-bottom: 16px;
+}
+
+.app-sidebar__header h2 {
+  margin: 8px 0 0;
+  font-size: 1.1rem;
+}
+
+.app-sidebar__nav {
+  display: grid;
+  gap: 10px;
+}
+
+.app-sidebar__group {
+  display: grid;
+  gap: 8px;
+}
+
+.app-sidebar__primary,
+.app-sidebar__secondary {
+  width: 100%;
+  text-align: left;
+  border-radius: 18px;
+  border: 1px solid rgba(19, 32, 51, 0.08);
+  background: rgba(248, 250, 253, 0.82);
+  color: #203249;
+}
+
+.app-sidebar__primary {
+  padding: 12px 14px;
+  font-weight: 800;
+}
+
+.app-sidebar__primary--active {
+  background: linear-gradient(135deg, #132033 0%, #244160 100%);
+  color: #fff;
+  border-color: transparent;
+}
+
+.app-sidebar__secondary-list {
+  display: grid;
+  gap: 6px;
+  padding-left: 10px;
+  border-left: 2px solid rgba(221, 109, 30, 0.18);
+}
+
+.app-sidebar__secondary {
+  padding: 10px 12px;
+  font-size: 0.94rem;
+  color: #516073;
+}
+
+.app-sidebar__secondary--active {
+  background: rgba(255, 241, 228, 0.96);
+  color: #8d4310;
+  border-color: rgba(221, 109, 30, 0.2);
 }
 
 .app-title {
@@ -74,6 +156,11 @@ aside {
   display: flex;
   gap: 10px;
   flex-wrap: wrap;
+}
+
+.locale-toggle {
+  display: flex;
+  gap: 8px;
 }
 
 .app-nav__button {
@@ -107,7 +194,7 @@ aside {
 
 .hero-card--split {
   display: grid;
-  grid-template-columns: 1.15fr 0.95fr;
+  grid-template-columns: minmax(0, 1fr);
   gap: 24px;
 }
 
@@ -468,6 +555,34 @@ aside {
   color: #516073;
 }
 
+.prompt-version-panel__header {
+  margin-bottom: 0;
+}
+
+.prompt-version-panel__version {
+  padding: 5px 10px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.92);
+  color: #9a4c12;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.prompt-editor {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.prompt-editor__field--wide {
+  grid-column: span 2;
+}
+
+.prompt-editor textarea {
+  min-height: 110px;
+  resize: vertical;
+}
+
 .prompt-version-panel__tags,
 .trace-list__item-metadata,
 .trace-list__item-metrics,
@@ -733,7 +848,7 @@ aside {
 
 .content-grid {
   display: grid;
-  grid-template-columns: 360px minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1fr);
   gap: 20px;
   margin-top: 22px;
 }
@@ -745,13 +860,30 @@ aside {
 .overview-secondary-grid,
 .integration-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: minmax(0, 1fr);
   gap: 20px;
   margin-top: 22px;
 }
 
 .integration-panel--wide {
-  grid-column: 1 / -1;
+  grid-column: auto;
+}
+
+#overview-summary,
+#overview-launch,
+#overview-context,
+#traces-workspace,
+#traces-detail,
+#integrations-sources,
+#integrations-entry,
+#integrations-trends,
+#evaluations-suites,
+#evaluations-runs,
+#evaluations-audit,
+#labs-scenarios,
+#labs-matrix,
+#labs-review {
+  scroll-margin-top: 20px;
 }
 
 .lab-card-grid,
@@ -839,6 +971,7 @@ aside {
   border-radius: 18px;
   border: 1px solid rgba(19, 32, 51, 0.08);
   background: rgba(255, 255, 255, 0.9);
+  margin-top: 14px;
 }
 
 .experiment-matrix-row {
@@ -876,33 +1009,12 @@ aside {
   box-shadow: inset 0 0 0 1px rgba(221, 109, 30, 0.18);
 }
 
-.experiment-matrix-popover {
-  position: absolute;
-  left: 12px;
-  top: calc(100% - 4px);
-  z-index: 5;
-  display: none;
-  width: min(280px, calc(100vw - 48px));
-  gap: 8px;
-  padding: 12px;
-  border-radius: 16px;
-  background: rgba(19, 32, 51, 0.96);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 18px 34px rgba(19, 32, 51, 0.24);
-}
-
-.experiment-matrix-popover strong,
-.experiment-matrix-popover small {
-  color: #f6f8fb;
-}
-
-.experiment-matrix-popover__action {
-  margin-top: 4px;
-}
-
-.experiment-matrix-cell--interactive:hover .experiment-matrix-popover,
-.experiment-matrix-cell--interactive:focus-within .experiment-matrix-popover {
-  display: grid;
+.experiment-matrix-inspector {
+  margin-top: 16px;
+  padding: 16px;
+  border-radius: 20px;
+  border: 1px solid rgba(221, 109, 30, 0.14);
+  background: linear-gradient(180deg, rgba(255, 250, 245, 0.98) 0%, rgba(249, 251, 253, 0.98) 100%);
 }
 
 .experiment-matrix-cell strong,
@@ -1211,6 +1323,7 @@ aside {
 }
 
 @media (max-width: 1240px) {
+  .app-layout,
   .app-header,
   .hero-card--split,
   .trend-visual-grid,
@@ -1220,11 +1333,16 @@ aside {
     grid-template-columns: 1fr;
   }
 
+  .app-sidebar {
+    position: static;
+  }
+
   .hero-kpi-grid,
   .context-grid,
   .trend-panel__cards,
   .playbook-grid,
   .trace-form__grid,
+  .prompt-editor,
   .panel__toolbar--dense,
   .compare-panel__header,
   .integration-summary-grid,
@@ -1254,6 +1372,7 @@ aside {
   .trend-panel__cards,
   .playbook-grid,
   .trace-form__grid,
+  .prompt-editor,
   .panel__toolbar--dense,
   .compare-panel__header,
   .detail-summary-grid,
@@ -1274,6 +1393,10 @@ aside {
   .trend-visual-card__header,
   .pagination-row {
     flex-direction: column;
+    align-items: stretch;
+  }
+
+  .app-header__actions {
     align-items: stretch;
   }
 

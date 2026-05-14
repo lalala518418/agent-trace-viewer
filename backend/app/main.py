@@ -15,7 +15,7 @@ from .models import AuditEvent, EvaluationCase, EvaluationCaseResult, Evaluation
 from .models import EvaluationReviewAssignment, ExternalConnectorSyncJob
 from .llm_runner import DEFAULT_LLM_TEMPERATURE, build_system_prompt, normalize_provider, resolve_api_key, resolve_base_url
 from .provider_pricing import OFFICIAL_PRICING_REVIEWED_AT, estimate_usage_cost, find_provider_pricing_rule
-from .prompt_registry import list_prompt_definitions
+from .prompt_registry import PromptVersionDefinition, list_prompt_definitions, save_prompt_definition
 from .schemas import (
     AuditEventCreateRequest,
     AuditEventResponse,
@@ -64,6 +64,7 @@ from .schemas import (
     ExternalUsageValidationResponse,
     HealthResponse,
     PromptVersionResponse,
+    PromptVersionUpsertRequest,
     RunTraceRequest,
     TraceScoreUpdateRequest,
     TraceBreakdownItemResponse,
@@ -1356,11 +1357,54 @@ def list_prompt_versions() -> list[PromptVersionResponse]:
         PromptVersionResponse(
             version=item.version,
             label=item.label,
+            label_zh=item.label_zh,
             description=item.description,
+            description_zh=item.description_zh,
+            system_prompt=item.system_prompt,
+            system_prompt_zh=item.system_prompt_zh,
             recommended_model=item.recommended_model,
             focus=item.focus,
+            focus_zh=item.focus_zh,
         )
         for item in list_prompt_definitions()
+    ]
+
+
+@app.put("/api/prompt-versions/{prompt_version}", response_model=list[PromptVersionResponse])
+def upsert_prompt_version(prompt_version: str, request: PromptVersionUpsertRequest) -> list[PromptVersionResponse]:
+    # Require the path version to match the payload version so frontend saves cannot silently rename records by mistake.
+    if prompt_version != request.version:
+        raise HTTPException(status_code=400, detail="Prompt version path and payload version must match")
+
+    definitions = save_prompt_definition(
+        PromptVersionDefinition(
+            version=request.version,
+            label=request.label,
+            label_zh=request.label_zh,
+            description=request.description,
+            description_zh=request.description_zh,
+            system_prompt=request.system_prompt,
+            system_prompt_zh=request.system_prompt_zh,
+            recommended_model=request.recommended_model,
+            focus=request.focus,
+            focus_zh=request.focus_zh,
+        )
+    )
+
+    return [
+        PromptVersionResponse(
+            version=item.version,
+            label=item.label,
+            label_zh=item.label_zh,
+            description=item.description,
+            description_zh=item.description_zh,
+            system_prompt=item.system_prompt,
+            system_prompt_zh=item.system_prompt_zh,
+            recommended_model=item.recommended_model,
+            focus=item.focus,
+            focus_zh=item.focus_zh,
+        )
+        for item in definitions
     ]
 
 

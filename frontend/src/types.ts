@@ -70,9 +70,27 @@ export interface TraceDetail extends TraceListItem {
 export interface PromptVersionOption {
   version: string
   label: string
+  label_zh: string
   description: string
+  description_zh: string
+  system_prompt: string
+  system_prompt_zh: string
   recommended_model: string
   focus: string
+  focus_zh: string
+}
+
+export interface UpdatePromptVersionPayload {
+  version: string
+  label: string
+  label_zh: string
+  description: string
+  description_zh: string
+  system_prompt: string
+  system_prompt_zh: string
+  recommended_model: string
+  focus: string
+  focus_zh: string
 }
 
 export interface TraceStatsPoint {

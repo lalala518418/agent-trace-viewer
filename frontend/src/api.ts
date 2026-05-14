@@ -33,6 +33,7 @@ import type {
   ExternalUsageValidation,
   IntegrationSource,
   PromptVersionOption,
+  UpdatePromptVersionPayload,
   SyncExternalConnectorPayload,
   TraceDetail,
   TraceListItem,
@@ -119,6 +120,20 @@ export async function listPromptVersions(): Promise<PromptVersionOption[]> {
   const response = await fetchFromApi('/api/prompt-versions')
   if (!response.ok) {
     throw new Error('Failed to fetch prompt versions')
+  }
+  return response.json()
+}
+
+export async function savePromptVersion(promptVersion: string, payload: UpdatePromptVersionPayload): Promise<PromptVersionOption[]> {
+  const response = await fetchFromApi(`/api/prompt-versions/${promptVersion}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(payload),
+  })
+  if (!response.ok) {
+    throw new Error('Failed to save prompt version')
   }
   return response.json()
 }

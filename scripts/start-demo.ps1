@@ -3,6 +3,8 @@ param(
   [int]$FrontendPort = 5173,
   [string]$BindHost = '127.0.0.1',
   [string]$PythonExe = '',
+  [ValidateSet('en', 'zh')]
+  [string]$Language = 'en',
   [switch]$InstallDeps,
   [switch]$NoBrowser,
   [switch]$DryRun
@@ -176,7 +178,7 @@ $backendProcess = Start-WindowProcess -Title 'Agent Trace Viewer Backend' -Worki
 $frontendProcess = Start-WindowProcess -Title 'Agent Trace Viewer Frontend' -WorkingDirectory $frontendDir -CommandLine $frontendCommand -PreviewOnly:$DryRun
 
 if (-not $NoBrowser) {
-  $frontendUrl = "http://${BindHost}:$FrontendPort"
+  $frontendUrl = "http://${BindHost}:$FrontendPort/?lang=$Language"
 
   if ($DryRun) {
     Write-Step "browser -> $frontendUrl"

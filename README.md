@@ -1,5 +1,7 @@
 # Agent Trace Viewer
 
+English overview: [README.en.md](README.en.md)
+
 Agent Trace Viewer 是一个面向 AI Agent 的轻量级调用链追踪与可视化项目。
 
 这个项目的目标不是单纯做一个聊天界面，而是把一次 Agent 任务从输入、推理、工具调用、错误处理到最终输出的全过程记录下来，并以可查询、可导出、可解释的方式展示出来。
@@ -95,7 +97,7 @@ powershell -ExecutionPolicy Bypass -File .\scripts\smoke-check.ps1
 
 页面截图和推荐演示顺序见 [docs/frontend-walkthrough.md](docs/frontend-walkthrough.md)。
 
-如果你后面要发布到 GitHub，需要注意一个现实约束：当前这个目录还不是 git 仓库，也没有配置 remote，所以现在只能先准备好代码和文档，不能直接 push。拿到 GitHub 仓库 URL 或确认要新建哪个仓库之后，再执行 `git init`、`git remote add origin ...`、commit 和 push 才能真正上传。
+如果你后面要继续发布到 GitHub，建议先跑一遍 `scripts/smoke-check.ps1`，确认前后端和关键接口都正常，再处理 commit、push 和仓库可见性切换。这样更符合这个项目“先验证，再展示”的工作流。
 
 ## 项目结构
 
@@ -122,7 +124,7 @@ agent-trace-viewer/
 以下内容已经搭了框架，但仍属于占位或第一版骨架：
 
 - 更完整的多 provider 适配
-- Prompt 模板文件化管理与后台编辑
+- Prompt 模板文件化管理与后台编辑已完成第一版：Prompt 元数据现在落到后端 JSON 注册表，前端总览页可直接编辑并保存版本定义
 - provider 专属 token 统计和成本换算已完成第一版：外部接入页会按官方价格快照核对 actual / estimated / delta，并对缺少官方来源的模型直接标记待人工核对
 - Agent Replay 已完成第一版，仍缺 replay diff 与批量回放
 - 批量评测、Trace 评分和权限审计已完成第一版可执行链路，现已支持矩阵评测入口、case 级 ground truth 元数据、人工标注入口、review 队列和多运行对照第一版，仍缺更强 judge 和审批流
