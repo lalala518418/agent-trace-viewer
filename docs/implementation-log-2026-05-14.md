@@ -151,3 +151,28 @@
 - 前端 `npm.cmd run build` 再次通过
 
 这一轮完成后，仓库默认打开时不再自带旧测试用例，关键价格校验逻辑也有了可重复执行的回归保护，后续再 push 到 GitHub 时更适合作为对外展示和继续迭代的基础版本。
+
+## 同日追加：后端 Demo Seed 去测试化
+
+前一轮虽然已经清掉了前端表单和仓库里的默认测试样例，但 backend demo seed 里仍然保留着 `Analyze this Python error` 这一类历史演示输入。这样的问题在于：前端看起来已经是“真实工作台”，但一旦重新 seed demo，后台又会把旧测试故事重新灌回来。
+
+这次追加落地内容：
+
+- 保留原有 scenario id，避免破坏前端现有路由和 seed 调用关系
+- 将 `code_debug` 的展示标题和描述改成更中性的运营工作流复盘语义
+- 把 `code_debug_bundle` 里的 trace 输入、suite 名称、case 标题、期望关键词都改成通用的 issue triage / workflow recovery 模板
+- 同步把审计原因从 `tool-risk` 调整成更通用的 `operational risk review flow`
+
+这次参数和设计选择说明：
+
+- 保留 `code_debug / paper_rag / robotics_embedded` 这些 id
+
+这里没有直接重命名 id，是因为它们已经是前后端联动契约的一部分。公开展示内容可以换得更中性，但接口标识最好保持稳定，避免为了文案清理引入额外兼容成本。
+
+- 只改展示语义和 seed 内容，不改调用结构
+
+这样做的目的是把这次变更控制在“公开仓库内容治理”范围内，而不是顺手重做 demo API。对当前阶段来说，最重要的是先确保别人拉下仓库后不会再看到明显的历史测试题面。
+
+本轮验证追加：
+
+- 后端 `d:/llmlearning/.venv/Scripts/python.exe -m unittest discover -s backend/tests -v` 再次通过，5 个测试全部为 `OK`
