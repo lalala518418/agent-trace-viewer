@@ -1372,6 +1372,11 @@ function App() {
       return
     }
 
+    if (!matrixForm.experiment_label.trim()) {
+      setEvaluationError(pickLocaleText(locale, 'Add an experiment label before running the matrix so the created runs can be grouped and summarized.', '执行矩阵评测前请先填写实验标签，这样新建的 runs 才能被归组和汇总。'))
+      return
+    }
+
     const variants = matrixForm.variantsText
       .split('\n')
       .map((item) => item.trim())
@@ -4055,7 +4060,7 @@ function App() {
                 </label>
                 <label className="trace-form__field">
                   <span>Experiment Label</span>
-                  <input value={matrixForm.experiment_label} onChange={(event) => setMatrixForm((current) => ({ ...current, experiment_label: event.target.value }))} />
+                  <input value={matrixForm.experiment_label} onChange={(event) => setMatrixForm((current) => ({ ...current, experiment_label: event.target.value }))} placeholder={pickLocaleText(locale, 'For example: matrix-demo-20260515', '例如：matrix-demo-20260515')} />
                 </label>
                 <label className="trace-form__field">
                   <span>{pickLocaleText(locale, 'Notes', '备注')}</span>
@@ -4071,6 +4076,14 @@ function App() {
                 {matrixRunning ? pickLocaleText(locale, 'Running Matrix...', '矩阵评测执行中...') : pickLocaleText(locale, 'Run Matrix Evaluation', '执行矩阵评测')}
               </button>
             </form>
+
+            {!evaluationSuites.length ? (
+              <p className="placeholder-text">
+                {pickLocaleText(locale, 'Create a suite in Evaluations first, or use Seed Scenario so the matrix has a runnable dataset.', '请先在 Evaluations 创建一个 suite，或者先点 Seed Scenario，让矩阵评测有可执行的数据集。')}
+              </p>
+            ) : null}
+
+            {evaluationError ? <p className="error-banner">{evaluationError}</p> : null}
 
             {matrixResult ? (
               <div className="matrix-result-list">

@@ -95,6 +95,8 @@ powershell -ExecutionPolicy Bypass -File .\scripts\smoke-check.ps1
 
 更详细的 Windows 本地说明见 [docs/windows-setup.md](docs/windows-setup.md)。
 
+如果你更想要一份“重启后直接照着敲”的简版命令表和日常使用建议，见 [docs/startup-and-usage-cheatsheet.md](docs/startup-and-usage-cheatsheet.md)。
+
 页面截图和推荐演示顺序见 [docs/frontend-walkthrough.md](docs/frontend-walkthrough.md)。
 
 如果你后面要继续发布到 GitHub，建议先跑一遍 `scripts/smoke-check.ps1`，确认前后端和关键接口都正常，再处理 commit、push 和仓库可见性切换。这样更符合这个项目“先验证，再展示”的工作流。
